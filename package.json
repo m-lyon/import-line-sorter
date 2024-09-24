@@ -1,0 +1,19 @@
+{
+    "name": "eslint-plugin-import-line-sorter",
+    "version": "1.0.0",
+    "description": "ESLint plugin to enforce line length based import sorting",
+    "main": "index.js",
+    "peerDependencies": {
+        "eslint": ">=8.0.0"
+    },
+    "keywords": [
+        "eslint",
+        "eslintplugin",
+        "eslint-plugin"
+    ],
+    "author": "Matthew Lyon",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^8.0.0"
+    }
+}
