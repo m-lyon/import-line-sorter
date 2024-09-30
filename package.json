@@ -27,6 +27,6 @@
     },
     "scripts": {
         "compile": "tsup lib/index.ts",
-        "test": "tsup tests && node dist/rules/sorter.test.js"
+        "test": "tsup tests && node dist/sorter.test.js"
     }
 }
