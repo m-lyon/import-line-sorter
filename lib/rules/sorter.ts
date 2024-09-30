@@ -24,18 +24,21 @@ export const sorter = ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     create: (context) => {
         const groupImports = (node: TSESTree.Program) => {
             // group imports by spaces between them
-            const singleLineRegex = /^import\s*{\s*[^}\n]+\s*}\s*from\s*['"][^'\n"]+['"];?\s*$/;
-            const importNodes = node.body.filter((n) => n.type === 'ImportDeclaration');
-            const singleLineImports = importNodes.filter((n) =>
+            const singleLineRegex =
+                /^(import|export|import\s+type|export\s+type)\s*{\s*[^}\n]+\s*}\s*from\s*['"][^'\n"]+['"];?\s*$/;
+            const nodes = node.body.filter((n) =>
+                ['ImportDeclaration', 'ExportNamedDeclaration'].includes(n.type)
+            );
+            const singleLines = nodes.filter((n) =>
                 singleLineRegex.test(context.sourceCode.getText(n))
             );
 
-            let currentGroup = [singleLineImports[0]];
+            let currentGroup = [singleLines[0]];
             const groups = [currentGroup];
 
-            for (let i = 1; i < singleLineImports.length; i++) {
-                const previousNode = singleLineImports[i - 1];
-                const currentNode = singleLineImports[i];
+            for (let i = 1; i < singleLines.length; i++) {
+                const previousNode = singleLines[i - 1];
+                const currentNode = singleLines[i];
                 if (!previousNode || !currentNode) {
                     continue;
                 }
