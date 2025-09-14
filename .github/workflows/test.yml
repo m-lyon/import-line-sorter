@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        eslint-version: [8, 9]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Install ESLint ${{ matrix.eslint-version }}
+        run: npm install eslint@${{ matrix.eslint-version }} --no-save
+      - name: Compile plugin
+        run: npm run compile
+      - name: Run tests
+        run: npm test

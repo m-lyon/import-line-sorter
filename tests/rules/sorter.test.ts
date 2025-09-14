@@ -1,14 +1,7 @@
-import { RuleTester } from 'eslint';
+import { getRuleTester } from '../utils';
 import { sorter } from '../../lib/rules/sorter';
 
-const ruleTester = new RuleTester({
-    parser: require.resolve('@typescript-eslint/parser'),
-    parserOptions: {
-        sourceType: 'module',
-        ecmaFeatures: { jsx: true },
-        ecmaVersion: 'latest',
-    },
-});
+const ruleTester = getRuleTester();
 
 const valid1 = `
 import { a } from 'a';
