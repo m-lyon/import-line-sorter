@@ -93,6 +93,16 @@ import { veryLongNamedFunction } from 'lib';
 import { anotherLongFunction } from 'lib';
 `;
 
+const invalid7 = `
+import {
+    a,
+    b,
+} from 'lib';
+`;
+const invalid7_solution = `
+import { a, b } from 'lib';
+`;
+
 ruleTester.run('multiline', multiline as any, {
     valid: [
         { code: valid1 },
@@ -139,6 +149,12 @@ ruleTester.run('multiline', multiline as any, {
             errors: [{ messageId: 'no-multiline-imports' }],
             output: invalid6_solution,
             options: [{ maxLength: 50, debug: false }],
+        },
+        // Trailing comma before closing brace (common Prettier output)
+        {
+            code: invalid7,
+            errors: [{ messageId: 'no-multiline-imports' }],
+            output: invalid7_solution,
         },
     ],
 });

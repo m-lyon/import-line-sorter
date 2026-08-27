@@ -49,7 +49,10 @@ export const multiline = ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds
                             const importText = context.sourceCode.getText(node);
                             const match = importText.match(/import {([\s\S]*?)} from (.*);/);
                             if (match) {
-                                const imports = match[1].split(',').map((s) => s.trim());
+                                const imports = match[1]
+                                    .split(',')
+                                    .map((s) => s.trim())
+                                    .filter((s) => s.length > 0);
                                 const source = match[2];
                                 const importStatements = constructImportStatements(imports, source);
                                 return fixer.replaceText(node, importStatements);
